@@ -1,2 +1,2 @@
 To install LEMP run as root
-bash LEMP.sh
+<br>bash LEMP.sh </br>
