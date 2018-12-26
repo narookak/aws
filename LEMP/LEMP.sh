@@ -3,7 +3,7 @@
 RETRY=0
 USER="webapps"
 DOMAINNAME="example.com"
-WEBALIAS=""
+WEBALIAS="www.example.com"
 WEBROOT="/home/${USER}_web/web/$DOMAINNAME/public_html"
 DB_HOST="localhost"
 blowfish_secret=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c72)
