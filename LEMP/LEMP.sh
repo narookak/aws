@@ -69,9 +69,9 @@ apt-key add /tmp/nginx_signing.key
 
 if [[ ${PHP_VERSION} == 5.6 ]]; then
     add-apt-repository -y ppa:ondrej/php
-    packages="debconf-utils wget curl nginx php5.6-fpm php5.6-dev php-pear php5.6-mysql php5.6-mcrypt php5.6-mbstring php5.6-gd php5.6-curl php5.6-zip unzip libmcrypt-dev wget mariadb-server mariadb-client-core-10.2 sendmail-bin libwww-perl"
+    packages="debconf-utils wget curl nginx php5.6-fpm php5.6-xml php5.6-dev php-pear php5.6-mysql php5.6-mcrypt php5.6-mbstring php5.6-gd php5.6-curl php5.6-zip zip unzip libmcrypt-dev wget mariadb-server mariadb-client-core-10.2 sendmail-bin libwww-perl"
     else
-    packages="debconf-utils wget curl nginx php-fpm php-dev php-pear php-mysql php-mbstring php-gd php-curl php-zip unzip libmcrypt-dev wget mariadb-server mariadb-client-core-10.2 sendmail-bin libwww-perl"
+    packages="debconf-utils wget curl nginx php-fpm php-xml php-dev php-pear php-mysql php-mbstring php-gd php-curl php-zip zip unzip libmcrypt-dev wget mariadb-server mariadb-client-core-10.2 sendmail-bin libwww-perl"
 
 fi
 
