@@ -20,6 +20,8 @@ server {
 
             fastcgi_pass    %backend_lsnr%;
             fastcgi_index   index.php;
+            fastcgi_buffers 64 256k;
+            fastcgi_buffer_size 256k;
             include         /etc/nginx/fastcgi_params;
         }
     }
