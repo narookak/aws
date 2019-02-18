@@ -23,10 +23,10 @@ SFTP_PORT=7272
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 PMA_VERSION="4.8.3"
-MODSECURITY="Yes"
+MODSECURITY="No"
 #Find PHP Version installed
 PHP_VERSION="7.0"
-NODEJS_ENABLED="Yes"
+NODEJS_ENABLED="No"
 #GITHub repo URL
 giturl="https://raw.githubusercontent.com/narookak/aws/master"
 # Defining return code check function
