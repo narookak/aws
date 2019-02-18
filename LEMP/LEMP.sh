@@ -6,6 +6,20 @@ DOMAINNAME="example.com"
 WEBALIAS="www.example.com"
 WEBROOT="/home/${USER}_web/web/$DOMAINNAME/public_html"
 DB_HOST="localhost"
+PMA_VERSION="4.8.3"
+MODSECURITY="No"
+#Find PHP Version installed
+PHP_VERSION="7.0"
+NODEJS_ENABLED="No"
+#SFTP Port
+SFTP_PORT=7272
+#GITHub repo URL
+giturl="https://raw.githubusercontent.com/narookak/aws/master"
+########################################
+###### Edit below this line only #######
+###### if you are an advance user ######
+########################################
+
 blowfish_secret=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c72)
 #MySQL root user password
 mypass=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c16)
@@ -17,18 +31,10 @@ arch=$(uname -i)
 os='ubuntu'
 release="$(lsb_release -s -r)"
 codename="$(lsb_release -s -c)"
-#SFTP Port
-SFTP_PORT=7272
 #SHELL Colors
 RED='\033[0;31m'
 NC='\033[0m' # No Color
-PMA_VERSION="4.8.3"
-MODSECURITY="No"
-#Find PHP Version installed
-PHP_VERSION="7.0"
-NODEJS_ENABLED="No"
-#GITHub repo URL
-giturl="https://raw.githubusercontent.com/narookak/aws/master"
+######
 # Defining return code check function
 check_result() {
     if [ $1 -ne 0 ]; then
