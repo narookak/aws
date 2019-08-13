@@ -1,63 +1,28 @@
 {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {
-      "rgLocation": {
-        "type": "string",
-        "metadata": {
-            "description": "Define Location for Resouces to be deployed" 
-          }
-      },
-      "rgName": {
-        "type": "object",
-        "metadata": {
-            "description": "Define Name for the resource groups" 
-          }
-      },
-      "VNetSettings": {
-        "type": "object",
-        "metadata": {
-            "description": "Define Name for the Virtual Networks" 
-          }
-      },
-      "tagValues": {
-        "type": "object",
-        "metadata": {
-            "description": "Define Tags for the resources" 
-          }
-        }
-                    },
-                    "variables": {},
-                    "resources": [
-                      {
-                        "type": "Microsoft.Network/virtualNetworks",
-                        "apiVersion": "2018-05-01",
-                        "name": "[parameters('VNetSettings').properties[0].Name]",
-                        "location": "[resourceGroup().location]",
-                        "properties": {
-                            "addressSpace":{
-                                "addressPrefixes": [
-                                  "[parameters('VNetSettings').addressPrefixes[0].addressPrefix]"
-                                ]
-                              },
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+                  "rgLocation": { "type": "string", "metadata": { "description": "Define Location for Resouces to be deployed"}},
+                  "rgName": { "type": "object", "metadata": { "description": "Define Name for the resource groups" }},
+                  "VNetSettings": { "type": "object", "metadata": { "description": "Define Name for the Virtual Networks" } },
+                  "tagValues": { "type": "object", "metadata": { "description": "Define Tags for the resources"  } }
+                  },
+    "variables": {},
+    "resources": [
+                  {
+                    "type": "Microsoft.Network/virtualNetworks",
+                    "apiVersion": "2017-06-01",
+                    "name": "[parameters('VNetSettings').properties[0].Name]",
+                    "location": "[resourceGroup().location]",
+                    "properties": {
+                    "addressSpace":{
+                    "addressPrefixes": [ "[parameters('VNetSettings').addressPrefixes[0].addressPrefix]" ] },
                               "subnets":[
-                                {
-                                  "name":"[parameters('VNetSettings').subnets[0].name]",
-                                  "properties": {
-                                    "addressPrefix": "[parameters('VNetSettings').subnets[0].addressPrefix]"
-                                  }
-                                },
-                                {
-                                  "name":"[parameters('VNetSettings').subnets[1].name]",
-                                  "properties": {
-                                    "addressPrefix": "[parameters('VNetSettings').subnets[1].addressPrefix]"
-                                  }
-                                }
-                              ]  
-
-                        } 
-                      }  
-
-                    ],
-                    "outputs": {}
-                }
+                                          { "name":"[parameters('VNetSettings').subnets[0].name]", "properties": {"addressPrefix": "[parameters('VNetSettings').subnets[0].addressPrefix]"}},
+                                          { "name":"[parameters('VNetSettings').subnets[1].name]", "properties": {"addressPrefix": "[parameters('VNetSettings').subnets[1].addressPrefix]"}}
+                                        ]
+                                  } 
+                  }
+                 ],
+    "outputs": {}
+}
