@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgLocation": {
+            "value": "Australia East"
+        },
+        "rgName": {
+            "value": {
+                "rgname": [ 
+                    { "Name": "RG_MGMT_Network" },
+                    { "Name": "RG_SAP_Network" },
+                    { "Name": "RG_APP_Network" }
+                    ]
+                }     
+            },    
+        "tagValues": {
+            "value": {
+                "tags": [
+                        { "Name": "RG_MGMT_VNet", "Dept": "Finance", "Environment": "Production", "CostCentre": "001" },
+                        { "Name": "RG_SAP_VNet", "Dept": "HR", "Environment": "Production" , "CostCentre": "002" },
+                        { "Name": "RG_APP_VNet", "Dept": "Sales", "Environment": "Production", "CostCentre": "003" }
+                        ]
+                     }
+                    }
+     },
+     "VNetSettings": {
+        "value": {
+            "properties": [
+                {
+                "Name": "VNet_MGMT",
+                "location": "Australia East",
+                "addressPrefixes": [ { "name": "firstPrefix", "addressPrefix": "10.10.0.0/16" } ],
+                "subnets": [ 
+                            { "name": "firstSubnet", "addressPrefix": "10.10.0.0/24" },
+                            { "name": "secondSubnet", "addressPrefix": "10.10.1.0/24" }
+                           ]
+                },
+                {
+                    "Name": "VNet_SAP",
+                    "location": "Australia East",
+                    "addressPrefixes": [ { "name": "firstPrefix", "addressPrefix": "10.20.0.0/16" } ],
+                    "subnets": [ 
+                                { "name": "firstSubnet", "addressPrefix": "10.20.0.0/24" },
+                                { "name": "secondSubnet", "addressPrefix": "10.20.1.0/24" }
+                               ]
+                },
+                {
+                "Name": "VNet_APP",
+                "location": "Australia East",
+                "addressPrefixes": [ { "name": "firstPrefix", "addressPrefix": "10.30.0.0/16" } ],
+                "subnets": [ 
+                            { "name": "firstSubnet", "addressPrefix": "10.30.0.0/24" },
+                            { "name": "secondSubnet", "addressPrefix": "10.30.1.0/24" }
+                           ]
+                }
+           ]
+        }
+    }
+}
