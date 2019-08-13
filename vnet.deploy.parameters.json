@@ -22,7 +22,6 @@
                         { "Name": "RG_APP_VNet", "Dept": "Sales", "Environment": "Production", "CostCentre": "003" }
                         ]
                      }
-                    }
      },
      "VNetSettings": {
         "value": {
