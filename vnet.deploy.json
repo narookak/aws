@@ -1,7 +1,32 @@
 {
                     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
-                    "parameters": {},
+                    "parameters": {
+      "rgLocation": {
+        "type": "string",
+        "metadata": {
+            "description": "Define Location for Resouces to be deployed" 
+          }
+      },
+      "rgName": {
+        "type": "object",
+        "metadata": {
+            "description": "Define Name for the resource groups" 
+          }
+      },
+      "VNetSettings": {
+        "type": "object",
+        "metadata": {
+            "description": "Define Name for the Virtual Networks" 
+          }
+      },
+      "tagValues": {
+        "type": "object",
+        "metadata": {
+            "description": "Define Tags for the resources" 
+          }
+        }
+                    },
                     "variables": {},
                     "resources": [
                       {
