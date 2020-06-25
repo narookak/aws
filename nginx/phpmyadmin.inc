@@ -1,6 +1,6 @@
 location /phpmyadmin {
+    index index.php;
     alias /usr/share/phpmyadmin/;
-
     location ~ /(libraries|setup) {
         return 404;
     }
