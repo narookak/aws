@@ -11,27 +11,39 @@ def _parse_acr_name(acr_registry_url):
     return registry.split(".")[0] if "." in registry else registry
 
 
+def _error_detail(response):
+    try:
+        payload = response.json()
+        if isinstance(payload, dict):
+            return payload.get("detail") or payload.get("message") or json.dumps(payload)
+        return str(payload)
+    except ValueError:
+        return response.text.strip()
+
+
 def get_dockerhub_images(arcgis_version, acr_registry_url, acr_identity_client_id, username, password, organization):
     # Authenticate with Docker Hub
-    auth_url = "https://hub.docker.com/v2/users/login/"
-    auth_payload = {"username": username, "password": password}
-    auth_response = requests.post(auth_url, json=auth_payload)
+    auth_url = "https://hub.docker.com/v2/auth/token"
+    auth_payload = {"identifier": username, "secret": password}
+    auth_response = requests.post(auth_url, json=auth_payload, timeout=30)
     
     if auth_response.status_code != 200:
-        print(json.dumps({"error": f"Failed to authenticate. Status code: {auth_response.status_code}"}))
+        detail = _error_detail(auth_response)
+        print(json.dumps({"error": f"Failed to authenticate. Status code: {auth_response.status_code}. Details: {detail}"}))
         sys.exit(1)
 
-    token = auth_response.json()['token']
-    headers = {"Authorization": f"JWT {token}"}
+    token = auth_response.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
 
     # Get list of repositories for the organization
     org_url = f"https://hub.docker.com/v2/repositories/{organization}/"
     all_data = []
 
     while org_url:
-        response = requests.get(org_url, headers=headers)
+        response = requests.get(org_url, headers=headers, timeout=30)
         if response.status_code != 200:
-            print(json.dumps({"error": f"Failed to retrieve repositories. Status code: {response.status_code}"}))
+            detail = _error_detail(response)
+            print(json.dumps({"error": f"Failed to retrieve repositories. Status code: {response.status_code}. Details: {detail}"}))
             sys.exit(1)
 
         repositories = response.json().get('results', [])
@@ -43,14 +55,15 @@ def get_dockerhub_images(arcgis_version, acr_registry_url, acr_identity_client_i
             repo_tags = []
 
             while tags_url:
-                tags_response = requests.get(tags_url, headers=headers)
+                tags_response = requests.get(tags_url, headers=headers, timeout=30)
                 if tags_response.status_code == 200:
                     tags = tags_response.json().get('results', [])
                     tags = [tag for tag in tags if '1234' not in tag['name'] and '-test' not in tag['name']]
                     repo_tags.extend(tags)
                     tags_url = tags_response.json().get('next', None)
                 else:
-                    print(json.dumps({"error": f"Failed to retrieve tags for repository {repo_name}. Status code: {tags_response.status_code}"}))
+                    detail = _error_detail(tags_response)
+                    print(json.dumps({"error": f"Failed to retrieve tags for repository {repo_name}. Status code: {tags_response.status_code}. Details: {detail}"}))
                     sys.exit(1)
 
             for tag in repo_tags:
